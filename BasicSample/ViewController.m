@@ -12,8 +12,8 @@
 #import <ReactiveCocoa.h>
 
 /// Localization manager import. Utilities are needed for shortcut function i2KLocalizedStringForKey("").
-#import "LocalizationManagerObject.h"
-#import "Utilities.h"
+#import "i2KRLMLocalizationManagerObject.h"
+#import "i2KRLMUtilities.h"
 
 static NSString *const kDisplayDateFormatString = @"dd.MM.yyyy j:mm";
 
@@ -52,7 +52,7 @@ static NSString *const kDisplayDateFormatString = @"dd.MM.yyyy j:mm";
 	@weakify(self);
 
 	// This array can be used for pickers but here it's used only for count
-	RAC(self, languagesArray) = [[[LocalizationManagerObject sharedInstance] languagesSignal] doNext:^(NSArray *x) {
+	RAC(self, languagesArray) = [[[i2KRLMLocalizationManagerObject sharedInstance] languagesSignal] doNext:^(NSArray *x) {
 		// Why not just log it since there is no UI for selection?
 		NSLog(@"languages = %@", x);
 	}];
@@ -60,13 +60,13 @@ static NSString *const kDisplayDateFormatString = @"dd.MM.yyyy j:mm";
 	// Almost all that is needed for basic usage of manager is to subscribe to locale signal and react to changes.
 	// On subscription there will be initial locale value, so it will be called at least once.
 	// If there is better/more FRP way to do this, I'd love to know.
-	[[[LocalizationManagerObject sharedInstance] localeSignal] subscribeNext:^(NSLocale *locale) {
+	[[[i2KRLMLocalizationManagerObject sharedInstance] localeSignal] subscribeNext:^(NSLocale *locale) {
 		@strongify(self);
 		[self localizeUIWithLocale:locale];
 	}];
 
 	// Simply for initial value since manager stores selected value
-	RAC(self, languageIndex) = [[[LocalizationManagerObject sharedInstance] selectedLanguageIndexSignal] take:1];
+	RAC(self, languageIndex) = [[[i2KRLMLocalizationManagerObject sharedInstance] selectedLanguageIndexSignal] take:1];
 
 	// Button command - this is called whenever button is tapped(if you don't forget to send completed as I did many
 	// times ;) )
@@ -79,7 +79,7 @@ static NSString *const kDisplayDateFormatString = @"dd.MM.yyyy j:mm";
 			NSUInteger langIndex = (self.languageIndex % [self.languagesArray count]);
 
 			// That's second part - if you need to change language, select index based on languages array.
-			[[LocalizationManagerObject sharedInstance] selectLanguageAtIndex:langIndex];
+			[[i2KRLMLocalizationManagerObject sharedInstance] selectLanguageAtIndex:langIndex];
 
 			[subscriber sendCompleted];
 			return nil;

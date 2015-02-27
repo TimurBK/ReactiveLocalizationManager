@@ -19,7 +19,7 @@
 // WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
 // COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-#import "LocalizationManagerObject.h"
+#import "i2KRLMLocalizationManagerObject.h"
 #import <ReactiveCocoa.h>
 #import "RACEXTScope.h"
 
@@ -34,7 +34,7 @@ static NSString *const LOCALEMANAGER_DefaultStringForLocalizedValue = @"--!NO TR
 static NSString *const LOCALEMANAGER_LocalizationBundleType = @"lproj";
 static NSString *const LOCALEMANAGER_BaseLocalizationName = @"Base";
 
-@interface LocalizationManagerObject ()
+@interface i2KRLMLocalizationManagerObject ()
 
 @property (nonatomic, strong) NSBundle *languageBundle;
 @property (nonatomic, strong) NSArray *languageCodes;
@@ -49,7 +49,7 @@ static NSString *const LOCALEMANAGER_BaseLocalizationName = @"Base";
 
 @end
 
-@implementation LocalizationManagerObject
+@implementation i2KRLMLocalizationManagerObject
 
 #pragma mark - Internal
 
@@ -164,7 +164,7 @@ static NSString *const LOCALEMANAGER_BaseLocalizationName = @"Base";
 
 + (instancetype)sharedInstance
 {
-	static LocalizationManagerObject *sharedInstance = nil;
+	static i2KRLMLocalizationManagerObject *sharedInstance = nil;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		sharedInstance = [[[self class] alloc] init];

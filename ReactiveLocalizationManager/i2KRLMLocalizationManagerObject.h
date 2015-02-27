@@ -21,8 +21,8 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "LocalizationManager.h"
+#import "i2KRLMLocalizationManager.h"
 
-@interface LocalizationManagerObject : NSObject<LocalizationManager>
+@interface i2KRLMLocalizationManagerObject : NSObject<i2KRLMLocalizationManager>
 
 @end

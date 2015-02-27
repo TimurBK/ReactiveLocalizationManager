@@ -1,6 +1,6 @@
 //
-//  SingletonProtocol.h
-//	ReactiveLocalizationManager
+//  Utilities.h
+//  ReactiveLocalizationManager
 //
 //  Created by Timur Kuchkarov on 18.09.14.
 //
@@ -22,8 +22,8 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol SingletonProtocol<NSObject>
+FOUNDATION_EXPORT NSString *i2KLocalizedStringForKey(NSString *key);
 
-+ (instancetype)sharedInstance;
+@interface i2KRLMUtilities : NSObject
 
 @end

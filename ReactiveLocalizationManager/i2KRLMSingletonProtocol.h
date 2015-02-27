@@ -1,6 +1,6 @@
 //
-//  Utilities.h
-//  ReactiveLocalizationManager
+//  SingletonProtocol.h
+//	ReactiveLocalizationManager
 //
 //  Created by Timur Kuchkarov on 18.09.14.
 //
@@ -19,10 +19,11 @@
 // WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
 // COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
 #import <Foundation/Foundation.h>
 
-FOUNDATION_EXPORT NSString *i2KLocalizedStringForKey(NSString *key);
+@protocol i2KRLMSingletonProtocol<NSObject>
 
-@interface Utilities : NSObject
++ (instancetype)sharedInstance;
 
 @end

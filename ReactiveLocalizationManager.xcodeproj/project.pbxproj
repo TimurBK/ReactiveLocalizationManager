@@ -13,8 +13,8 @@
 		3CC2AF9B1AA0431200FF2733 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CC2AF931AA0431200FF2733 /* Images.xcassets */; };
 		3CC2AF9D1AA0431200FF2733 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC2AF951AA0431200FF2733 /* main.m */; };
 		3CC2AF9E1AA0431200FF2733 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC2AF971AA0431200FF2733 /* ViewController.m */; };
-		3CC2AFA51AA0437D00FF2733 /* LocalizationManagerObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC2AFA11AA0437D00FF2733 /* LocalizationManagerObject.m */; };
-		3CC2AFA61AA0437D00FF2733 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC2AFA41AA0437D00FF2733 /* Utilities.m */; };
+		3CC2AFA51AA0437D00FF2733 /* i2KRLMLocalizationManagerObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC2AFA11AA0437D00FF2733 /* i2KRLMLocalizationManagerObject.m */; };
+		3CC2AFA61AA0437D00FF2733 /* i2KRLMUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC2AFA41AA0437D00FF2733 /* i2KRLMUtilities.m */; };
 		3CC2AFB51AA0494200FF2733 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3CC2AFB71AA0494200FF2733 /* Localizable.strings */; };
 		3CDC799D1A9F97A500D771F9 /* ReactiveLocalizationManager.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 3CDC799C1A9F97A500D771F9 /* ReactiveLocalizationManager.podspec */; };
 		BD892F26F6EE71E8458836D0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AF1627322995DAD7306AC03D /* libPods.a */; };
@@ -29,12 +29,12 @@
 		3CC2AF951AA0431200FF2733 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3CC2AF961AA0431200FF2733 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		3CC2AF971AA0431200FF2733 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		3CC2AF9F1AA0437D00FF2733 /* LocalizationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalizationManager.h; sourceTree = "<group>"; };
-		3CC2AFA01AA0437D00FF2733 /* LocalizationManagerObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalizationManagerObject.h; sourceTree = "<group>"; };
-		3CC2AFA11AA0437D00FF2733 /* LocalizationManagerObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalizationManagerObject.m; sourceTree = "<group>"; };
-		3CC2AFA21AA0437D00FF2733 /* SingletonProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingletonProtocol.h; sourceTree = "<group>"; };
-		3CC2AFA31AA0437D00FF2733 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
-		3CC2AFA41AA0437D00FF2733 /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
+		3CC2AF9F1AA0437D00FF2733 /* i2KRLMLocalizationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = i2KRLMLocalizationManager.h; sourceTree = "<group>"; };
+		3CC2AFA01AA0437D00FF2733 /* i2KRLMLocalizationManagerObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = i2KRLMLocalizationManagerObject.h; sourceTree = "<group>"; };
+		3CC2AFA11AA0437D00FF2733 /* i2KRLMLocalizationManagerObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = i2KRLMLocalizationManagerObject.m; sourceTree = "<group>"; };
+		3CC2AFA21AA0437D00FF2733 /* i2KRLMSingletonProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = i2KRLMSingletonProtocol.h; sourceTree = "<group>"; };
+		3CC2AFA31AA0437D00FF2733 /* i2KRLMUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = i2KRLMUtilities.h; sourceTree = "<group>"; };
+		3CC2AFA41AA0437D00FF2733 /* i2KRLMUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = i2KRLMUtilities.m; sourceTree = "<group>"; };
 		3CC2AFA71AA048FF00FF2733 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		3CC2AFA91AA0490300FF2733 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		3CC2AFAB1AA0490700FF2733 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -120,12 +120,12 @@
 		3CDC79751A9F957400D771F9 /* ReactiveLocalizationManager */ = {
 			isa = PBXGroup;
 			children = (
-				3CC2AF9F1AA0437D00FF2733 /* LocalizationManager.h */,
-				3CC2AFA01AA0437D00FF2733 /* LocalizationManagerObject.h */,
-				3CC2AFA11AA0437D00FF2733 /* LocalizationManagerObject.m */,
-				3CC2AFA21AA0437D00FF2733 /* SingletonProtocol.h */,
-				3CC2AFA31AA0437D00FF2733 /* Utilities.h */,
-				3CC2AFA41AA0437D00FF2733 /* Utilities.m */,
+				3CC2AF9F1AA0437D00FF2733 /* i2KRLMLocalizationManager.h */,
+				3CC2AFA01AA0437D00FF2733 /* i2KRLMLocalizationManagerObject.h */,
+				3CC2AFA11AA0437D00FF2733 /* i2KRLMLocalizationManagerObject.m */,
+				3CC2AFA21AA0437D00FF2733 /* i2KRLMSingletonProtocol.h */,
+				3CC2AFA31AA0437D00FF2733 /* i2KRLMUtilities.h */,
+				3CC2AFA41AA0437D00FF2733 /* i2KRLMUtilities.m */,
 				3CDC799C1A9F97A500D771F9 /* ReactiveLocalizationManager.podspec */,
 			);
 			path = ReactiveLocalizationManager;
@@ -251,9 +251,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3CC2AFA61AA0437D00FF2733 /* Utilities.m in Sources */,
+				3CC2AFA61AA0437D00FF2733 /* i2KRLMUtilities.m in Sources */,
 				3CC2AF981AA0431200FF2733 /* AppDelegate.m in Sources */,
-				3CC2AFA51AA0437D00FF2733 /* LocalizationManagerObject.m in Sources */,
+				3CC2AFA51AA0437D00FF2733 /* i2KRLMLocalizationManagerObject.m in Sources */,
 				3CC2AF9D1AA0431200FF2733 /* main.m in Sources */,
 				3CC2AF9E1AA0431200FF2733 /* ViewController.m in Sources */,
 			);
