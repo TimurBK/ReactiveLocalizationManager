@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C61D6F81AAEE52500B78351 /* NSObject+LocalizeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C61D6F71AAEE52500B78351 /* NSObject+LocalizeObject.m */; };
 		3CC2AF981AA0431200FF2733 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC2AF8E1AA0431200FF2733 /* AppDelegate.m */; };
 		3CC2AF991AA0431200FF2733 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CC2AF8F1AA0431200FF2733 /* LaunchScreen.xib */; };
 		3CC2AF9A1AA0431200FF2733 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CC2AF911AA0431200FF2733 /* Main.storyboard */; };
@@ -21,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3C61D6F61AAEE52500B78351 /* NSObject+LocalizeObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+LocalizeObject.h"; sourceTree = "<group>"; };
+		3C61D6F71AAEE52500B78351 /* NSObject+LocalizeObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+LocalizeObject.m"; sourceTree = "<group>"; };
 		3CC2AF8D1AA0431200FF2733 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3CC2AF8E1AA0431200FF2733 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		3CC2AF901AA0431200FF2733 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -94,6 +97,8 @@
 				3CC2AF961AA0431200FF2733 /* ViewController.h */,
 				3CC2AF971AA0431200FF2733 /* ViewController.m */,
 				3CC2AFB71AA0494200FF2733 /* Localizable.strings */,
+				3C61D6F61AAEE52500B78351 /* NSObject+LocalizeObject.h */,
+				3C61D6F71AAEE52500B78351 /* NSObject+LocalizeObject.m */,
 			);
 			path = BasicSample;
 			sourceTree = "<group>";
@@ -252,6 +257,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3CC2AFA61AA0437D00FF2733 /* i2KRLMUtilities.m in Sources */,
+				3C61D6F81AAEE52500B78351 /* NSObject+LocalizeObject.m in Sources */,
 				3CC2AF981AA0431200FF2733 /* AppDelegate.m in Sources */,
 				3CC2AFA51AA0437D00FF2733 /* i2KRLMLocalizationManagerObject.m in Sources */,
 				3CC2AF9D1AA0431200FF2733 /* main.m in Sources */,
