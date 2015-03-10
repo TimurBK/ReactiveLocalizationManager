@@ -15,6 +15,5 @@ typedef void (^LocalizationBlock)(id object, NSLocale *locale);
 @interface NSObject (LocalizeObject)
 
 - (void)setLocalizationSignal:(RACSignal *)signal withBlock:(LocalizationBlock)block;
-//- (void)localizeWithLocale:(NSLocale *)locale;
 
 @end
