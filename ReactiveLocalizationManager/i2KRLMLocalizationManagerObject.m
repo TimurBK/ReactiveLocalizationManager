@@ -19,6 +19,7 @@
 // WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
 // COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
 #import "i2KRLMLocalizationManagerObject.h"
 #import <ReactiveCocoa.h>
 #import "RACEXTScope.h"
@@ -40,9 +41,9 @@ static NSString *const LOCALEMANAGER_BaseLocalizationName = @"Base";
 @property (nonatomic, strong) NSArray *languageCodes;
 @property (nonatomic, strong) NSString *defaultLanguageCode;
 
-@property (nonatomic, strong) RACMulticastConnection *localeConnection;
-@property (nonatomic, strong) RACMulticastConnection *languageNamesConnection;
-@property (nonatomic, strong) RACMulticastConnection *languageIndexConnection;
+@property (nonatomic, strong) RACReplaySubject *localeSignal;
+@property (nonatomic, strong) RACReplaySubject *selectedLanguageIndexSignal;
+@property (nonatomic, strong) RACReplaySubject *languagesSignal;
 
 - (void)reloadBundleWithLocaleID:(NSString *)localeID;
 - (void)changeToLocale:(NSLocale *)locale;
@@ -63,17 +64,9 @@ static NSString *const LOCALEMANAGER_BaseLocalizationName = @"Base";
 
 - (void)configureSignals
 {
-	RACReplaySubject *subject = [RACReplaySubject replaySubjectWithCapacity:1];
-	self.localeConnection = [subject multicast:subject];
-	[self.localeConnection autoconnect];
-
-	RACReplaySubject *languagesSubject = [RACReplaySubject replaySubjectWithCapacity:1];
-	self.languageNamesConnection = [languagesSubject multicast:languagesSubject];
-	[self.languageNamesConnection autoconnect];
-
-	RACReplaySubject *languageIndexSubject = [RACReplaySubject replaySubjectWithCapacity:1];
-	self.languageIndexConnection = [languageIndexSubject multicast:languageIndexSubject];
-	[self.languageIndexConnection autoconnect];
+	self.localeSignal = [RACReplaySubject replaySubjectWithCapacity:1];
+	self.languagesSignal = [RACReplaySubject replaySubjectWithCapacity:1];
+	self.selectedLanguageIndexSignal = [RACReplaySubject replaySubjectWithCapacity:1];
 }
 
 - (void)configureAppLocalizations
@@ -91,10 +84,9 @@ static NSString *const LOCALEMANAGER_BaseLocalizationName = @"Base";
 		return [[tempLocale displayNameForKey:NSLocaleLanguageCode value:value] capitalizedStringWithLocale:tempLocale];
 	}] array];
 
-	[((RACSubject *)[self languagesSignal])sendNext:languageNames];
+	[self.languagesSignal sendNext:languageNames];
 
-	[((RACSubject *)[self selectedLanguageIndexSignal])
-		sendNext:@([self.languageCodes indexOfObject:self.defaultLanguageCode])];
+	[self.selectedLanguageIndexSignal sendNext:@([self.languageCodes indexOfObject:self.defaultLanguageCode])];
 	[self changeToLocale:[NSLocale localeWithLocaleIdentifier:self.defaultLanguageCode]];
 }
 
@@ -155,7 +147,7 @@ static NSString *const LOCALEMANAGER_BaseLocalizationName = @"Base";
 - (void)changeToLocale:(NSLocale *)locale
 {
 	[self reloadBundleWithLocaleID:[locale localeIdentifier]];
-	[(RACSubject *)[self localeSignal] sendNext:locale];
+	[self.localeSignal sendNext:locale];
 }
 
 #pragma mark - Protocols
@@ -175,21 +167,6 @@ static NSString *const LOCALEMANAGER_BaseLocalizationName = @"Base";
 
 #pragma mark - Localization manager protocol
 
-- (RACSignal *)localeSignal
-{
-	return self.localeConnection.signal;
-}
-
-- (RACSignal *)selectedLanguageIndexSignal
-{
-	return self.languageIndexConnection.signal;
-}
-
-- (RACSignal *)languagesSignal
-{
-	return self.languageNamesConnection.signal;
-}
-
 - (void)selectLanguageAtIndex:(NSUInteger)index
 {
 	if (index < self.languageCodes.count) {
@@ -197,7 +174,7 @@ static NSString *const LOCALEMANAGER_BaseLocalizationName = @"Base";
 		[[NSUserDefaults standardUserDefaults] setObject:localeID
 												  forKey:LOCALEMANAGER_UserDefaultsSelectedLanguageKeyPath];
 		[[NSUserDefaults standardUserDefaults] synchronize];
-		[((RACSubject *)[self selectedLanguageIndexSignal])sendNext:@(index)];
+		[self.selectedLanguageIndexSignal sendNext:@(index)];
 		[self changeToLocale:[NSLocale localeWithLocaleIdentifier:localeID]];
 	}
 }
