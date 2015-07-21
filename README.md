@@ -1,6 +1,6 @@
 # ReactiveLocalizationManager
 This class helps change app language without changing device language or restarting app. 
-**NOTE** This class depends on **ReactiveCocoa** (currently v.2.4.x).
+**NOTE** This class depends on **ReactiveCocoa** (currently v.2.5.x).
 
 # Installation
 
