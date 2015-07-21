@@ -10,10 +10,10 @@
 
 @class RACSignal;
 
-typedef void (^LocalizationBlock)(id object, NSLocale *locale);
+typedef void (^i2KRLMLocalizationBlock)(id object, NSLocale *locale);
 
-@interface NSObject (LocalizeObject)
+@interface NSObject (i2KRLMLocalizeObject)
 
-- (void)setLocalizationSignal:(RACSignal *)signal withBlock:(LocalizationBlock)block;
+- (void)i2KRLM_setLocalizationSignal:(RACSignal *)signal withBlock:(i2KRLMLocalizationBlock)block;
 
 @end

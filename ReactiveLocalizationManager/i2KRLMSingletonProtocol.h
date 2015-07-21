@@ -22,8 +22,22 @@
 
 #import <Foundation/Foundation.h>
 
+@class RACSignal;
+
 @protocol i2KRLMSingletonProtocol<NSObject>
 
+/**
+ *  Shared instance of object.
+ *
+ *  @return Shared instance available throughout the app.
+ */
 + (instancetype)sharedInstance;
+
+/**
+ *  Signal that sends 'next' each time error occurs.
+ *
+ *  @return Signal of errors.
+ */
+- (RACSignal *)errorsSignal;
 
 @end

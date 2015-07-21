@@ -44,6 +44,8 @@ static NSString *const LOCALEMANAGER_BaseLocalizationName = @"Base";
 @property (nonatomic, strong) RACReplaySubject *localeSignal;
 @property (nonatomic, strong) RACReplaySubject *selectedLanguageIndexSignal;
 @property (nonatomic, strong) RACReplaySubject *languagesSignal;
+@property (nonatomic, strong) RACSubject *errorsSignal;
+@property (nonatomic, strong) RACCommand *selectLanguage;
 
 - (void)reloadBundleWithLocaleID:(NSString *)localeID;
 - (void)changeToLocale:(NSLocale *)locale;
@@ -64,24 +66,41 @@ static NSString *const LOCALEMANAGER_BaseLocalizationName = @"Base";
 
 - (void)configureSignals
 {
+	@weakify(self);
 	self.localeSignal = [RACReplaySubject replaySubjectWithCapacity:1];
 	self.languagesSignal = [RACReplaySubject replaySubjectWithCapacity:1];
 	self.selectedLanguageIndexSignal = [RACReplaySubject replaySubjectWithCapacity:1];
+	self.errorsSignal = [RACSubject subject];
+	self.selectLanguage = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(NSNumber *input) {
+	  return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+		@strongify(self);
+		NSUInteger index = [input unsignedIntegerValue];
+		if (index < self.languageCodes.count) {
+			NSString *localeID = self.languageCodes[index];
+			[self.selectedLanguageIndexSignal sendNext:@(index)];
+			NSLocale *locale = [NSLocale localeWithLocaleIdentifier:localeID];
+			[self changeToLocale:locale];
+			[subscriber sendNext:locale];
+		}
+		[subscriber sendCompleted];
+		return nil;
+	  }];
+	}];
 }
 
 - (void)configureAppLocalizations
 {
 	NSArray *bundleLocalizations = [[NSBundle mainBundle] localizations];
 	self.languageCodes = [[[bundleLocalizations rac_sequence] filter:^BOOL(NSString *value) {
-		BOOL result = ![value isEqualToString:LOCALEMANAGER_BaseLocalizationName];
-		return result;
+	  BOOL result = ![value isEqualToString:LOCALEMANAGER_BaseLocalizationName];
+	  return result;
 	}] array];
 
 	[self readConfiguration];
 
 	NSArray *languageNames = [[[self.languageCodes rac_sequence] map:^id(NSString *value) {
-		NSLocale *tempLocale = [NSLocale localeWithLocaleIdentifier:value];
-		return [[tempLocale displayNameForKey:NSLocaleLanguageCode value:value] capitalizedStringWithLocale:tempLocale];
+	  NSLocale *tempLocale = [NSLocale localeWithLocaleIdentifier:value];
+	  return [[tempLocale displayNameForKey:NSLocaleLanguageCode value:value] capitalizedStringWithLocale:tempLocale];
 	}] array];
 
 	[self.languagesSignal sendNext:languageNames];
@@ -95,12 +114,6 @@ static NSString *const LOCALEMANAGER_BaseLocalizationName = @"Base";
 	NSString *plistPath = [[NSBundle mainBundle] pathForResource:LOCALEMANAGER_LanguageConfigFileName
 														  ofType:LOCALEMANAGER_LanguageConfigFileType];
 
-	NSString *storedLanguageCode =
-		[[NSUserDefaults standardUserDefaults] objectForKey:LOCALEMANAGER_UserDefaultsSelectedLanguageKeyPath];
-
-	if (storedLanguageCode != nil && [self.languageCodes indexOfObject:storedLanguageCode] != NSNotFound) {
-		self.defaultLanguageCode = storedLanguageCode;
-	}
 	if (!plistPath) {
 		if (!self.defaultLanguageCode) {
 			self.defaultLanguageCode = [[[NSBundle mainBundle] preferredLocalizations] firstObject];
@@ -113,7 +126,16 @@ static NSString *const LOCALEMANAGER_BaseLocalizationName = @"Base";
 	NSDictionary *configuration =
 		[NSPropertyListSerialization propertyListWithData:plistData options:0 format:NULL error:&error];
 
+	// Crash in debug if we can't read data
 	NSAssert(error == nil, LOCALEMANAGER_LanguageConfigReadError, error.localizedDescription);
+
+	// And send error in release and bail early.
+	if (!configuration) {
+		self.defaultLanguageCode = [[[NSBundle mainBundle] preferredLocalizations] firstObject];
+		[self.errorsSignal sendNext:error];
+		return;
+	}
+
 	NSString *defaultCode = [configuration valueForKeyPath:LOCALEMANAGER_LanguageConfigDefaultLanguageKeyPath];
 	if (!self.defaultLanguageCode) {
 		if ([defaultCode length] > 1) {
@@ -127,8 +149,8 @@ static NSString *const LOCALEMANAGER_BaseLocalizationName = @"Base";
 	@weakify(self);
 	NSArray *languagesOrder = [[[[configuration valueForKeyPath:LOCALEMANAGER_LanguageConfigOrderKeyPath] rac_sequence]
 		filter:^BOOL(NSString *value) {
-			@strongify(self);
-			return [self.languageCodes containsObject:value];
+		  @strongify(self);
+		  return [self.languageCodes containsObject:value];
 		}] array];
 
 	NSMutableOrderedSet *languages = [NSMutableOrderedSet orderedSetWithArray:languagesOrder];
@@ -159,25 +181,13 @@ static NSString *const LOCALEMANAGER_BaseLocalizationName = @"Base";
 	static i2KRLMLocalizationManagerObject *sharedInstance = nil;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-		sharedInstance = [[[self class] alloc] init];
-		[sharedInstance initialConfiguration];
+	  sharedInstance = [[[self class] alloc] init];
+	  [sharedInstance initialConfiguration];
 	});
 	return sharedInstance;
 }
 
 #pragma mark - Localization manager protocol
-
-- (void)selectLanguageAtIndex:(NSUInteger)index
-{
-	if (index < self.languageCodes.count) {
-		NSString *localeID = self.languageCodes[index];
-		[[NSUserDefaults standardUserDefaults] setObject:localeID
-												  forKey:LOCALEMANAGER_UserDefaultsSelectedLanguageKeyPath];
-		[[NSUserDefaults standardUserDefaults] synchronize];
-		[self.selectedLanguageIndexSignal sendNext:@(index)];
-		[self changeToLocale:[NSLocale localeWithLocaleIdentifier:localeID]];
-	}
-}
 
 - (NSString *)localizedStringForKey:(NSString *)key
 {

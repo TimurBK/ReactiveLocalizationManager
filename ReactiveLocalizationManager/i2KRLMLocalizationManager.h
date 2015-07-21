@@ -23,6 +23,7 @@
 #import "i2KRLMSingletonProtocol.h"
 
 @class RACSignal;
+@class RACCommand;
 
 @protocol i2KRLMLocalizationManager<i2KRLMSingletonProtocol>
 
@@ -50,12 +51,14 @@
 - (RACSignal *)languagesSignal;
 
 /**
- *  This method changes language based on language index. Index should be based on array from array provided by @code
- *  - (RACSignal *)languagesSignal @endcode
+ *  Command that changes language based on language index. Index should be based on array from array provided by
+ *  @code -(RACSignal *)languagesSignal @endcode
+ *  Pass index as input for command.
+ *  Sends selected locale on next so you can get it here too.
  *
  *  @param index index of language in provided languages array.
  */
-- (void)selectLanguageAtIndex:(NSUInteger)index;
+- (RACCommand *)selectLanguage;
 
 /**
  *  Gets string based on provided key from currently loaded language bundle.
