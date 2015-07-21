@@ -6,6 +6,6 @@ This class helps change app language without changing device language or restart
 
 ReactiveLocalizationManager is available via [CocoaPods](http://cocoapods.org/). Add the following line to your podfile:
 
-      pod 'ReactiveLocalizationManager', '~> 1.1'
+      pod 'ReactiveLocalizationManager', '~> 1.2'
       
 Alternatively just drag&drop ReactiveLocalizationManager folder to your project.
