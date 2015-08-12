@@ -45,8 +45,7 @@
 /**
  *  This signal sends array of localizable language names for displaying it somewhere.
  *
- *  @return Signal which sends 'next' each time when languages aaray changes(currently there will be only initial
- *value).
+ *  @return Signal which sends 'next' each time when languages array changes.
  */
 - (RACSignal *)languagesSignal;
 

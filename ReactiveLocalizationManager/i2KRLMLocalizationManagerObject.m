@@ -187,6 +187,14 @@ static NSString *const LOCALEMANAGER_BaseLocalizationName = @"Base";
 	return sharedInstance;
 }
 
+- (void)dealloc
+{
+	[self.localeSignal sendCompleted];
+	[self.selectedLanguageIndexSignal sendCompleted];
+	[self.languagesSignal sendCompleted];
+	[self.errorsSignal sendCompleted];
+}
+
 #pragma mark - Localization manager protocol
 
 - (NSString *)localizedStringForKey:(NSString *)key
